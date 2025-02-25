@@ -1,5 +1,9 @@
 <template>
-  <li></li>
+  <li :class="{completed : todo.completed}">
+    <input type = "checkbox" v-model="todo.completed"/>
+    <strong>{{ todo.text }}</strong>
+    <button @click="deleteTodo">Delete Task</button>
+  </li>
 </template>
 
 <script lang="ts">
