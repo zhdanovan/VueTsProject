@@ -15,11 +15,8 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import TodoItem from './ToDoItem.vue';
+import { type Todo } from '../types/todo';
 
-interface Todo {
-  text: string;
-  completed: boolean;
-}
 
 export default defineComponent({
   components: {
