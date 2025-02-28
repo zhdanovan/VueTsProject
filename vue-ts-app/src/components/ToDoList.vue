@@ -3,7 +3,7 @@
       <ul>
         <TodoItem
           v-for="todo in todos"
-          :key="todo.text"
+          :key="todo.id"
           :todo="todo"
           @remove="removeTodo"
         />
@@ -25,10 +25,12 @@ export default defineComponent({
   setup() {
     const todos = ref<Todo[]>([]);
     const newTodoText = ref('');
+    let nextTodoId = 1;
 
     const addTodo = () => {
       if (newTodoText.value.trim() === '') return;
       todos.value.push({
+        id:nextTodoId++,
         text: newTodoText.value,
         completed: false,
       });
