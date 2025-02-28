@@ -5,7 +5,9 @@
           v-for="todo in todos"
           :key="todo.id"
           :todo="todo"
-          @remove="removeTodo"
+          @delete="deleteTodo"
+          @edit = "editTodo"
+          :isEditing = "editTodoId === todo.id"
         />
       </ul>
       <input v-model="newTodoText" @keyup.enter="addTodo" placeholder="AddTask" />
@@ -25,6 +27,7 @@ export default defineComponent({
   setup() {
     const todos = ref<Todo[]>([]);
     const newTodoText = ref('');
+    const editTodoId = ref<number | null>(null);
     let nextTodoId = 1;
 
     const addTodo = () => {
@@ -37,15 +40,28 @@ export default defineComponent({
       newTodoText.value = '';
     };
 
-    const removeTodo = (todo: Todo) => {
+    const deleteTodo = (todo: Todo) => {
       todos.value = todos.value.filter((t) => t !== todo);
+    };
+
+    const editTodo = (todo: Todo, newText:string) => {
+      if (newText === null) {
+        editTodoId.value = null;
+      } else if (newText.trim()==='') {
+        deleteTodo(todo);
+      } else {
+        todo.text = newText;
+        editTodoId.value = null;
+      }
     };
 
     return {
       todos,
       newTodoText,
       addTodo,
-      removeTodo,
+      deleteTodo,
+      editTodoId,
+      editTodo
     };
   },
 });

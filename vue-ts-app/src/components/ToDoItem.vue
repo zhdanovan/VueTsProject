@@ -19,7 +19,7 @@ export default defineComponent({
   },
   methods: {
     deleteTodo() {
-      this.$emit('remove', this.todo);
+      this.$emit('delete', this.todo);
     },
   },
 });
